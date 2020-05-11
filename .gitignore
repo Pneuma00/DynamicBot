@@ -1,2 +1,2 @@
 .env
-commands/*.js
+commands/custom/*.js

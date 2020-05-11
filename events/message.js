@@ -15,17 +15,18 @@ module.exports = async (client, message) => {
   const args = contents.split(/ +/g);
   const commandName = args.shift().toLowerCase();
 
-  if (commandName === 'add') {
-    if (message.author.id !== client.config.devID) return message.reply('You don\'t have permission to add commands.');
-    if (client.commands.get(args[0])) return message.reply('That command already exists.');
-
-    client.commands.add(args.shift(), args.join(' '));
-    message.channel.send(`Successfully added the command.`, { code: 'md' });
+  if (commandName === 'admin') {
+    if (message.author.id !== client.config.devID) return message.reply('어드민 명령어를 사용할 권한이 없습니다.');
+    require('../commands/admin.js')(client, message);
   }
   else {
     const command = client.commands.get(commandName);
-    if (!command) message.channel.send('The command does not exist.');
-    else command.run(message, args);
+    if (!command) return message.channel.send('존재하지 않는 명령어입니다.');
+
+    try {
+      command.run(message, args);
+    } catch (err) {
+      message.channel.send(`오류가 발생하였습니다: \`\`\`${err}\`\`\``);
+    }
   }
-  
 };

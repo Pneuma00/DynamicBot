@@ -11,21 +11,22 @@ const fs = require('fs');
 client.commands = new Discord.Collection();
 
 Reflect.defineProperty(client.commands, 'add', {
-	value: async (commandName, code) => {
-    await fs.writeFileSync(`./commands/${commandName}.js`,
+	value: async (commandName, commandDesc, code) => {
+    await fs.writeFileSync(`./commands/custom/${commandName}.js`,
 `module.exports = {
   name: '${commandName}',
+  desc: '${commandDesc.replace(/\n/g, '\\n')}',
   run: async (message, args) => {
-    ${code.slice(5, -3)}
+    ${code}
   }
 }`);
-    const command = require(`./commands/${commandName}.js`);
+    const command = require(`./commands/custom/${commandName}.js`);
 		client.commands.set(command.name, command);
 	},
 });
 
-fs.readdirSync('./commands/').filter(file => file.endsWith('.js')).forEach(file => {
-  const command = require(`./commands/${file}`);
+fs.readdirSync('./commands/custom').filter(file => file.endsWith('.js')).forEach(file => {
+  const command = require(`./commands/custom/${file}`);
   client.commands.set(command.name, command);
 });
 
