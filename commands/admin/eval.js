@@ -11,7 +11,7 @@ module.exports = async (client, message, dashboardMsg) => {
   const filter = msg => msg.author.id === client.config.devID;
 
   dashboardMsg.edit(embed.setTitle('코드 실행').setDescription('코드를 입력해주세요.'));
-  let collected = (await message.channel.awaitMessages(filter, { max: 1, time: 30000 })).first();
+  let collected = (await message.channel.awaitMessages(filter, { max: 1, time: 300000 })).first();
   const code = collected.content.slice(6, -4);
   collected.delete();
     

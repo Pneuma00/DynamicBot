@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-module.exports = (client, message, dashboardMsg) => {
+module.exports = async (client, message, dashboardMsg) => {
   const embed = new Discord.MessageEmbed();
   const filter = msg => msg.author.id === client.config.devID;
 
