@@ -15,6 +15,9 @@ module.exports = async (client, message) => {
   else if (collected.content === 'eval') {
     require('./admin/eval.js')(client, message, msg);
   }
+  else if (collected.content === 'requests') {
+    require('./admin/requests.js')(client, message, msg);
+  }
   else {
     return message.channel.send('존재하지 않는 옵션입니다.')
   }

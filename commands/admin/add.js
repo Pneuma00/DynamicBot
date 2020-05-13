@@ -5,7 +5,7 @@ module.exports = async (client, message, dashboardMsg) => {
   const filter = msg => msg.author.id === client.config.devID;
 
   dashboardMsg.edit(embed.setTitle('명령어 추가').setDescription('명령어 이름을 입력해주세요.'));
-  collected = (await message.channel.awaitMessages(filter, { max: 1, time: 30000 })).first();
+  let collected = (await message.channel.awaitMessages(filter, { max: 1, time: 30000 })).first();
   const commandName = collected.content;
   if (client.commands.get(commandName)) return message.reply('이미 존재하는 명령어입니다.');
   

@@ -19,6 +19,9 @@ module.exports = async (client, message) => {
     if (message.author.id !== client.config.devID) return message.reply('어드민 명령어를 사용할 권한이 없습니다.');
     require('../commands/admin.js')(client, message);
   }
+  else if (commandName === 'request') {
+    require('../commands/request.js')(client, message);
+  }
   else {
     const command = client.commands.get(commandName);
     if (!command) return message.channel.send('존재하지 않는 명령어입니다.');
